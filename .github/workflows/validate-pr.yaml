@@ -1,0 +1,22 @@
+name: 'validate-pr'
+on:
+  pull_request:
+    branches: [pro1dev,pro1release,preprod,main]
+    types: [opened,reopened]
+
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v3
+
+      - name: branches info
+        run: |
+          echo "GITHUB_HEAD_REF=${{github.head_ref}}" >> $GITHUB_ENV
+          echo "GITHUB_BASE_REF=${{github.base_ref}}" >> $GITHUB_ENV
+
+      - name: 'Validate Code Changes from ${{env.GITHUB_HEAD_REF}} to ${{env.GITHUB_BASE_REF}}'
+        run: |
+          git diff ${{github.head_ref}}..${{github.base_ref}}
+          # Add your validation commands here, for example:
