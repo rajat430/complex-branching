@@ -20,5 +20,5 @@ jobs:
 
       - name: 'Validate Code Changes from ${{env.GITHUB_HEAD_REF}} to ${{env.GITHUB_BASE_REF}}'
         run: |
-          git diff ${{github.head_ref}}..${{github.base_ref}}
+          git diff ${{env.GITHUB_HEAD_REF}}..${{env.GITHUB_BASE_REF}}
           # Add your validation commands here, for example:
